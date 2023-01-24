@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import axios from "axios";
+import { useState, useEffect } from "react";
+
+const URL = `http://www.boredapi.com/api/activity/`;
 
 function App() {
+  const [activity, setActivity] = useState("Eat a Sandwich");
+
+  // useEffect(() => {
+  //   axios.get(URL).then((response) => {
+  //     console.log(response);
+  //     setActivity(response.data.activity);
+  //   });
+  // }, [URL]);
+
+  const getActivity = () => {
+    axios.get(URL).then((response) => {
+      console.log(response);
+      setActivity(response.data.activity);
+    });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {" "}
+      This app will tell you what to do you when your bored
+      <div>You should {activity};</div>
+      <div>
+        {" "}
+        Click this button to get a new activity!{" "}
+        <button onClick={getActivity}> click me</button>{" "}
+      </div>
     </div>
   );
 }
